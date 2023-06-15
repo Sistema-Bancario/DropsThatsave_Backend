@@ -36,8 +36,8 @@ const postUsuario = async (req = request, res = response) => {
 }
 
 const postUsuarioAdmin = async (req = request, res = response) => {
-    const { nombre, correo, password } = req.body;
-    const usuarioGuardadoDB = new Usuario({ nombre, correo, password });
+    const { nombre, correo, password, rol } = req.body;
+    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol });
 
     const salt = bcrypt.genSaltSync();
     usuarioGuardadoDB.password = bcrypt.hashSync(password, salt);
@@ -64,12 +64,31 @@ const putUsuario = async (req = request, res = response) => {
             });
         }
 
-        const { telefono, correo } = req.body;
+        const { correo, telefono, ...resto } = req.body;
 
-        usuario.telefono = telefono;
-        usuario.correo = correo;
+        if (Object.keys(resto).length > 0) {
+            return res.status(400).json({
+                msg: 'No se pueden enviar datos adicionales'
+            });
+        }
+
+        if (correo) {
+            // Validar el formato del correo si se proporciona
+            if (!validateEmail(correo)) {
+                return res.status(400).json({
+                    msg: 'El correo proporcionado no es válido'
+                });
+            }
+            usuario.correo = correo;
+        }
 
         const usuarioEditado = await usuario.save();
+
+        if (!usuarioEditado) {
+            return res.status(404).json({
+                msg: 'No se pudo editar el usuario'
+            });
+        }
 
         res.json({
             msg: 'PUT editar usuario',
@@ -82,6 +101,8 @@ const putUsuario = async (req = request, res = response) => {
         });
     }
 }
+
+
 
 
 
