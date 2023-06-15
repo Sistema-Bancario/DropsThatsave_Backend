@@ -6,7 +6,7 @@ const { esRoleValido, emailExiste, existeUsuarioPorId, sangreValida } = require(
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { tieneRole } = require('../middlewares/validar-roles');
-const tipoSangre = require('../models/tipoSangre');
+
 
 const router = Router();
 
@@ -31,15 +31,16 @@ router.post('/agregarAdmin', [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),
     check('password', 'El password es obligatorio').not().isEmpty(),
+    check('password', 'El password debe de ser más de 6 digitos').isLength( { min: 6 } ),
+    check('correo', 'El correo no es valido').isEmail(),
     check('correo').custom( emailExiste ),
     check('rol').default('ADMIN_ROLE').custom(  esRoleValido ),
+    validarCampos
     //validarJWT
 ], postUsuarioAdmin)
 
-router.put('/editar/:id', [
-    check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom( existeUsuarioPorId ),
-    check('rol').custom(  esRoleValido ),
+router.put('/editar', [
+    validarJWT,
     validarCampos
 ] ,putUsuario);
 
