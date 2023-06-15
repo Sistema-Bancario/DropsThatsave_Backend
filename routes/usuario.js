@@ -18,6 +18,7 @@ router.post('/agregar', [
     check('password', 'El password es obligatorio').not().isEmpty(),
     check('tipoSangre', 'El tipo de sangre es obligatorio').not().isEmpty(),
     check('telefono', 'El teléfono es obligatorio').not().isEmpty(),
+    check('telefono', 'El telefono debe de ser más de 8 digitos').isLength( { min: 8 } ),
     check('password', 'El password debe de ser más de 6 digitos').isLength( { min: 6 } ),
     check('correo', 'El correo no es valido').isEmail(),
     check('correo').custom( emailExiste ),
@@ -28,20 +29,21 @@ router.post('/agregar', [
 
 router.post('/agregarAdmin', [
     //tieneRole('ADMIN_ROLE'),
+    check('rol').default('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),
     check('password', 'El password es obligatorio').not().isEmpty(),
     check('password', 'El password debe de ser más de 6 digitos').isLength( { min: 6 } ),
     check('correo', 'El correo no es valido').isEmail(),
     check('correo').custom( emailExiste ),
-    check('rol').default('ADMIN_ROLE').custom(  esRoleValido ),
+    
     validarCampos
     //validarJWT
 ], postUsuarioAdmin)
 
 router.put('/editar', [
     validarJWT,
-    validarCampos
+    validarCampos,
 ] ,putUsuario);
 
 
