@@ -1,6 +1,8 @@
 const { response, request } = require('express');
 const bcrypt = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const jwt = require('jsonwebtoken');
+
 
 const getUsuarios = async (req = request, res = response) => {
 
@@ -51,28 +53,43 @@ const postUsuarioAdmin = async (req = request, res = response) => {
 
 
 const putUsuario = async (req = request, res = response) => {
+    try {
+        const token = req.header('x-token');
+        const { uid } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+        const usuario = await Usuario.findById(uid);
 
-    const { id } = req.params;
-    const { _id, img, estado, google, ...resto } = req.body;
+        if (!usuario) {
+            return res.status(404).json({
+                msg: 'Usuario no encontrado'
+            });
+        }
 
-    if ( resto.password ) {
-        const salt = bcrypt.genSaltSync();
-        resto.password = bcrypt.hashSync(resto.password, salt);
+        const { telefono, correo } = req.body;
+
+        usuario.telefono = telefono;
+        usuario.correo = correo;
+
+        const usuarioEditado = await usuario.save();
+
+        res.json({
+            msg: 'PUT editar usuario',
+            usuarioEditado
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: 'Error al editar el usuario'
+        });
     }
-
-    const usuarioEditado = await Usuario.findByIdAndUpdate(id, resto);
-
-    res.json({
-        msg: 'PUT editar user',
-        usuarioEditado
-    });
-
 }
 
-const deleteUsuario = async(req = request, res = response) => {
+
+
+
+const deleteUsuario = async (req = request, res = response) => {
     const { id } = req.params;
 
-     const usuarioEliminado = await Usuario.findByIdAndUpdate(id, { estado: false });
+    const usuarioEliminado = await Usuario.findByIdAndUpdate(id, { estado: false });
 
     res.json({
         msg: 'DELETE eliminar user',
