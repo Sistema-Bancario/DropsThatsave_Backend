@@ -1,0 +1,336 @@
+{
+	"info": {
+		"_postman_id": "5f1baaf2-0d2f-40c9-929f-e4fca28b522d",
+		"name": "DROPS THAT SAVE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25979209"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\": \"fab@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Fabian\",\r\n    \"correo\": \"fab@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/usuarios/agregarAdmin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"agregarAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Jefrey\",\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/usuarios/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiN2RkZTQzMTM0MDY2YWI3YzFjOTIiLCJpYXQiOjE2ODY4NjcwNzYsImV4cCI6MTY4Njg3MDY3Nn0.BaTVjlYp6gYj3OG30ZKu77Kg-kyLXvMAHgdzt6xZh-M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"telefono\":\"54963172\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/usuarios/editar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"editar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banco",
+			"item": [
+				{
+					"name": "Agregar Banco",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGY0ZjI0MmYyNDY4MDk2NjBiYTEiLCJpYXQiOjE2ODY4Njc4NTQsImV4cCI6MTY4Njg3MTQ1NH0.IzvdNpvhmRX8SdUmgWAd8oZcP9LvuWjFMLkeX4_765E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"banco la guadalupana\",\r\n    \"direccion\":\"5 av 21-93 zona 10\",\r\n    \"telefno\":\"45293698\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/bancos/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bancos",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGY0ZjI0MmYyNDY4MDk2NjBiYTEiLCJpYXQiOjE2ODY4Njc4NTQsImV4cCI6MTY4Njg3MTQ1NH0.IzvdNpvhmRX8SdUmgWAd8oZcP9LvuWjFMLkeX4_765E",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"banco la guadalupanassssssssssssssssssssssssssss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/bancos/editar/648b8fc5dede5c0f46e7288b",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bancos",
+								"editar",
+								"648b8fc5dede5c0f46e7288b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Elimar Banco",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGY0ZjI0MmYyNDY4MDk2NjBiYTEiLCJpYXQiOjE2ODY4Njc4NTQsImV4cCI6MTY4Njg3MTQ1NH0.IzvdNpvhmRX8SdUmgWAd8oZcP9LvuWjFMLkeX4_765E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/bancos/eliminar/648b8fc5dede5c0f46e7288b",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bancos",
+								"eliminar",
+								"648b8fc5dede5c0f46e7288b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Solicitud",
+			"item": [
+				{
+					"name": "Solicitar sangre",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGU3YTc3NmQxOWNhMzllODczYzEiLCJpYXQiOjE2ODY4NzQwMDQsImV4cCI6MTY4Njg3NzYwNH0.ptyR68Dbar8XDjSi6zNkplo-fMty4NRA0mlSZz8Bta4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"648b8f9bdede5c0f46e72885\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/solicitudes/solicitudNueva",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"solicitudes",
+								"solicitudNueva"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost:8080/api/solicitudes/aceptar/648ba9006b37583e6c266560",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGU3YTc3NmQxOWNhMzllODczYzEiLCJpYXQiOjE2ODY4NzQwMDQsImV4cCI6MTY4Njg3NzYwNH0.ptyR68Dbar8XDjSi6zNkplo-fMty4NRA0mlSZz8Bta4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/solicitudes/aceptar/648ba9006b37583e6c266560",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"solicitudes",
+								"aceptar",
+								"648ba9006b37583e6c266560"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
