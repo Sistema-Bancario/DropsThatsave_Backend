@@ -10,6 +10,7 @@ class Server {
         this.authPath = '/api/auth';
         this.usuariosPath = '/api/usuarios';
         this.bancosPath = '/api/bancos';
+        this.solicitudesPath = '/api/solicitudes';
 
         this.conectarDB();
 
@@ -38,6 +39,7 @@ class Server {
         this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.usuariosPath, require('../routes/usuario'));
         this.app.use(this.bancosPath,require('../routes/banco'))
+        this.app.use(this.solicitudesPath,require('../routes/solicitud'))
     }
 
 
