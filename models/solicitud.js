@@ -13,6 +13,9 @@ const SolicitudSangreSchema = Schema({
   tipoSangre: {
     type: String,
   },
+  litros:{
+    type: Number
+  },
   banco: {
     type: Schema.Types.ObjectId,
     ref: 'Banco'
@@ -25,7 +28,8 @@ const SolicitudSangreSchema = Schema({
     type: String,
     enum: ['Pendiente', 'Aceptada', 'Rechazada'],
     default: 'Pendiente'
-  }
+  },
+  
 });
 
 module.exports = model('SolicitudSangre', SolicitudSangreSchema);
