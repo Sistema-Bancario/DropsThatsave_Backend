@@ -15,10 +15,14 @@ const DonacionSangreSchema = Schema({
     type: Number,
     required: true
   },
+  enfermedad:{
+    type: Boolean
+  },
   fecha: {
     type: Date,
     default: Date.now
   }
+
 });
 
 module.exports = model('DonacionSangre', DonacionSangreSchema);

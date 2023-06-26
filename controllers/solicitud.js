@@ -17,7 +17,7 @@ const solicitarSangre = async (req, res) => {
       return res.status(404).json({
         msg: 'Usuario no encontrado'
       });
-    }
+    } 
 
     const { tipoSangre, banco, litros } = req.body;
 
@@ -119,7 +119,37 @@ const aceptarSolicitud = async (req, res) => {
   }
 };
 
+const actualizarLitrosRestantes = async (solicitudId, litrosDonados) => {
+  try {
+    const solicitud = await SolicitudSangre.findById(solicitudId);
+    if (!solicitud) {
+      throw new Error('Solicitud de sangre no encontrada');
+    }
 
+    solicitud.litros -= litrosDonados;
+    await solicitud.save();
+
+    return solicitud;
+  } catch (error) {
+    throw new Error('Error al actualizar los litros restantes en la solicitud');
+  }
+};
+
+const actualizarEstadoSolicitud = async (solicitudId) => {
+  try {
+    const solicitud = await SolicitudSangre.findById(solicitudId);
+    if (!solicitud) {
+      throw new Error('Solicitud de sangre no encontrada');
+    }
+
+    if (solicitud.litros <= 0) {
+      solicitud.estado = 'Completada';
+      await solicitud.save();
+    }
+  } catch (error) {
+    throw new Error('Error al actualizar el estado de la solicitud');
+  }
+};
 
 
 
@@ -127,6 +157,8 @@ const aceptarSolicitud = async (req, res) => {
 
 module.exports = {
   solicitarSangre,
-  aceptarSolicitud
+  aceptarSolicitud,
+  actualizarLitrosRestantes,
+  actualizarEstadoSolicitud
 };
 

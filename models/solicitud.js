@@ -6,10 +6,10 @@ const SolicitudSangreSchema = Schema({
     ref: 'Usuario',
     required: true
   },
-  usuarioDonante: {
+  usuarioDonante: [{
     type: Schema.Types.ObjectId,
     ref: 'Usuario',
-  },
+  }],
   tipoSangre: {
     type: String,
   },
