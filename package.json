@@ -1,7 +1,7 @@
 {
-  "name": "proyecto-hoteles",
+  "name": "proyecto-dropsthatsave",
   "version": "1.0.0",
-  "description": "Proyecto Hoteles",
+  "description": "proyect-DropsThatSave",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",

@@ -20,6 +20,14 @@ const UsuarioSchema = Schema({
         type: String,
         
     },
+    solicitudes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'SolicitudSangre'
+      }],
+      donaciones: [{
+        type: Schema.Types.ObjectId,
+        ref: 'DonacionSangre'
+      }],
     rol: {
         type: String,
        

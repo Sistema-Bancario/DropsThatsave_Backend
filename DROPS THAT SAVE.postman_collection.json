@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "5f1baaf2-0d2f-40c9-929f-e4fca28b522d",
+		"_postman_id": "bae6eaf6-359a-4085-b5b9-28a922c86333",
 		"name": "DROPS THAT SAVE",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25979209"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -45,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"correo\": \"jua@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,6 +103,64 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"nombre\": \"Jefrey\",\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/usuarios/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar user Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"correo\": \"jua@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -275,13 +332,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGU3YTc3NmQxOWNhMzllODczYzEiLCJpYXQiOjE2ODY4NzQwMDQsImV4cCI6MTY4Njg3NzYwNH0.ptyR68Dbar8XDjSi6zNkplo-fMty4NRA0mlSZz8Bta4",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhjOGE0YTA1NmRmYTVjYjk2ZGFhODYiLCJpYXQiOjE2ODc3OTY3ODgsImV4cCI6MTY4NzgwMDM4OH0.E8WueyzqWwKuAA_Uk8mrPcaUrJBpFQlyDGBHVeEpPjw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"648b8f9bdede5c0f46e72885\"\r\n}",
+							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"648c7e3a00f3f8ec413ed1ff\",\r\n    \"litros\": 50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,27 +361,35 @@
 					"response": []
 				},
 				{
-					"name": "localhost:8080/api/solicitudes/aceptar/648ba9006b37583e6c266560",
+					"name": "aceptar",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGU3YTc3NmQxOWNhMzllODczYzEiLCJpYXQiOjE2ODY4NzQwMDQsImV4cCI6MTY4Njg3NzYwNH0.ptyR68Dbar8XDjSi6zNkplo-fMty4NRA0mlSZz8Bta4",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhjNzhhNGU0MDkzMTg3NWIwNWE4ZGEiLCJpYXQiOjE2ODc3OTYxOTQsImV4cCI6MTY4Nzc5OTc5NH0.5Grtji1Y2K79HCMZ6uXdwC4Nrjv5HgH6XsZ6wUfPtyE",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"solicitud\": \"6499c6282ce25acf1cadc62e\", \r\n    \"litrosDonados\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "localhost:8080/api/solicitudes/aceptar/648ba9006b37583e6c266560",
+							"raw": "localhost:8080/api/donaciones/aceptar",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"api",
-								"solicitudes",
-								"aceptar",
-								"648ba9006b37583e6c266560"
+								"donaciones",
+								"aceptar"
 							]
 						}
 					},
