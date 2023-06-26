@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const Banco = require('../models/banco')
 
 
-
 const solicitarSangre = async (req, res) => {
   try {
     const token = req.header('x-token');
@@ -40,6 +39,10 @@ const solicitarSangre = async (req, res) => {
     // Guardar la solicitud en la base de datos
     const solicitudGuardada = await nuevaSolicitud.save();
 
+    // Agregar el ID de la solicitud al array de solicitudes en el usuario
+    usuario.solicitudes.push(solicitudGuardada._id);
+    await usuario.save();
+
     res.json({
       msg: 'Solicitud de sangre enviada correctamente',
       solicitud: solicitudGuardada
@@ -53,71 +56,72 @@ const solicitarSangre = async (req, res) => {
 };
 
 
-const aceptarSolicitud = async (req, res) => {
-  try {
-    const token = req.header('x-token');
-    const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
 
-    // Verificar si el usuario existe
-    const usuario = await Usuario.findById(uid);
-    if (!usuario) {
-      return res.status(404).json({
-        msg: 'Usuario no encontrado'
-      });
-    }
+// const aceptarSolicitud = async (req, res) => {
+//   try {
+//     const token = req.header('x-token');
+//     const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
 
-    const { id, litros } = req.params;
+//     // Verificar si el usuario existe
+//     const usuario = await Usuario.findById(uid);
+//     if (!usuario) {
+//       return res.status(404).json({
+//         msg: 'Usuario no encontrado'
+//       });
+//     }
 
-    // Verificar si la solicitud de sangre existe
-    const solicitud = await SolicitudSangre.findById(id);
-    if (!solicitud) {
-      return res.status(404).json({
-        msg: 'Solicitud de sangre no encontrada'
-      });
-    }
+//     const { id, litros } = req.params;
 
-    // Verificar si el usuario que acepta la solicitud es el usuario donante
-    const usuarioDonante = usuario._id; // Utilizar el ID del usuario obtenido desde el token
+//     // Verificar si la solicitud de sangre existe
+//     const solicitud = await SolicitudSangre.findById(id);
+//     if (!solicitud) {
+//       return res.status(404).json({
+//         msg: 'Solicitud de sangre no encontrada'
+//       });
+//     }
 
-    if (solicitud.usuarioDonante && solicitud.usuarioDonante.toString() !== usuarioDonante.toString()) {
-      return res.status(401).json({
-        msg: 'No tienes permisos para aceptar esta solicitud de sangre'
-      });
-    }
+//     // Verificar si el usuario que acepta la solicitud es el usuario donante
+//     const usuarioDonante = usuario._id; // Utilizar el ID del usuario obtenido desde el token
 
-    // Obtener el tipo de sangre solicitado
-    const tipoSangreSolicitado = solicitud.tipoSangre;
+//     if (solicitud.usuarioDonante && solicitud.usuarioDonante.toString() !== usuarioDonante.toString()) {
+//       return res.status(401).json({
+//         msg: 'No tienes permisos para aceptar esta solicitud de sangre'
+//       });
+//     }
 
-    // Verificar si el tipo de sangre del usuario coincide con el tipo de sangre solicitado
-    if (usuario.tipoSangre !== tipoSangreSolicitado) {
-      return res.status(401).json({
-        msg: 'El tipo de sangre del usuario no coincide con el solicitado'
-      });
-    }
+//     // Obtener el tipo de sangre solicitado
+//     const tipoSangreSolicitado = solicitud.tipoSangre;
 
-    // Actualizar el estado de la solicitud y asignar el usuario donante y los litros de sangre donados
-    solicitud.estado = 'Aceptada';
-    solicitud.usuarioDonante = usuarioDonante;
-    solicitud.litrosDonados = litros;
+//     // Verificar si el tipo de sangre del usuario coincide con el tipo de sangre solicitado
+//     if (usuario.tipoSangre !== tipoSangreSolicitado) {
+//       return res.status(401).json({
+//         msg: 'El tipo de sangre del usuario no coincide con el solicitado'
+//       });
+//     }
 
-    // Calcular la cantidad restante de litros necesarios
-    const litrosRestantes = solicitud.litros - litros;
+//     // Actualizar el estado de la solicitud y asignar el usuario donante y los litros de sangre donados
+//     solicitud.estado = 'Aceptada';
+//     solicitud.usuarioDonante = usuarioDonante;
+//     solicitud.litrosDonados = litros;
 
-    // Guardar los cambios en la base de datos
-    await solicitud.save();
+//     // Calcular la cantidad restante de litros necesarios
+//     const litrosRestantes = solicitud.litros - litros;
 
-    res.json({
-      msg: 'Solicitud de sangre aceptada exitosamente',
-      solicitud,
-      litrosRestantes
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      msg: 'Error al aceptar la solicitud de sangre'
-    });
-  }
-};
+//     // Guardar los cambios en la base de datos
+//     await solicitud.save();
+
+//     res.json({
+//       msg: 'Solicitud de sangre aceptada exitosamente',
+//       solicitud,
+//       litrosRestantes
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       msg: 'Error al aceptar la solicitud de sangre'
+//     });
+//   }
+// };
 
 const actualizarLitrosRestantes = async (solicitudId, litrosDonados) => {
   try {
@@ -127,9 +131,13 @@ const actualizarLitrosRestantes = async (solicitudId, litrosDonados) => {
     }
 
     solicitud.litros -= litrosDonados;
-    await solicitud.save();
 
-    return solicitud;
+    // Verificar si se han completado los litros solicitados
+    if (solicitud.litros <= 0) {
+      solicitud.estado = 'Completada';
+    }
+
+    await solicitud.save();
   } catch (error) {
     throw new Error('Error al actualizar los litros restantes en la solicitud');
   }
@@ -157,7 +165,7 @@ const actualizarEstadoSolicitud = async (solicitudId) => {
 
 module.exports = {
   solicitarSangre,
-  aceptarSolicitud,
+  //aceptarSolicitud,
   actualizarLitrosRestantes,
   actualizarEstadoSolicitud
 };

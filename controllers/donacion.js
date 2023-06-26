@@ -51,6 +51,10 @@ const aceptarDonacion = async (req, res) => {
     // Guardar la donación de sangre en su propia colección
     await donacionSangre.save();
 
+    // Agregar el ID de la donación al array de donaciones en el usuario
+    usuario.donaciones.push(donacionSangre._id);
+    await usuario.save();
+
     // Actualizar los litros restantes en la solicitud
     await actualizarLitrosRestantes(solicitud, litrosDonados);
 
@@ -69,6 +73,7 @@ const aceptarDonacion = async (req, res) => {
     });
   }
 };
+
 
 
 module.exports = {

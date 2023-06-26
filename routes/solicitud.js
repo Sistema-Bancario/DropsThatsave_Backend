@@ -16,10 +16,10 @@ router.post('/solicitudNueva', [
     validarCampos
 ],solicitarSangre);
 
-router.put('/aceptar/:id',[
-    validarJWT,
-    check('litros', 'La cantidad es obliagtoria').notEmpty(),
-], aceptarSolicitud)
+// router.put('/aceptar/:id',[
+//     validarJWT,
+//     check('litros', 'La cantidad es obliagtoria').notEmpty(),
+// ], aceptarSolicitud)
 
 
 module.exports = router;
