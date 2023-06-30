@@ -28,6 +28,12 @@ const UsuarioSchema = Schema({
         type: Schema.Types.ObjectId,
         ref: 'DonacionSangre'
       }],
+    direccion:{
+        type: String
+    },
+    tatuajes:{
+        type: Boolean
+    },
     rol: {
         type: String,
        

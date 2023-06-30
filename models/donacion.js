@@ -18,6 +18,9 @@ const DonacionSangreSchema = Schema({
   enfermedad:{
     type: Boolean
   },
+  horaDonar:{
+    type: String
+  },
   fecha: {
     type: Date,
     default: Date.now

@@ -15,6 +15,12 @@ const BancoSchema = Schema({
         type: Boolean,
         default: true
     },
+    apertura:{
+        type:String,
+    },
+    cierre:{
+        type: String
+    },
     img: {
         type: String
     },

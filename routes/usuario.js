@@ -13,6 +13,8 @@ const router = Router();
 router.get('/mostrar', getUsuarios);
 
 router.post('/agregar', [
+    validarJWT,
+    tieneRole('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),
     check('password', 'El password es obligatorio').not().isEmpty(),
@@ -28,7 +30,7 @@ router.post('/agregar', [
 ] ,postUsuario);
 
 router.post('/agregarAdmin', [
-    //tieneRole('ADMIN_ROLE'),
+    tieneRole('ADMIN_ROLE'),
     check('rol').default('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),
