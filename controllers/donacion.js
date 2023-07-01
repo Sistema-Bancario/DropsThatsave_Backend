@@ -16,7 +16,7 @@ const aceptarDonacion = async (req, res) => {
       });
     }
 
-    const { solicitud, litrosDonados, horaDonacion } = req.body;
+    const { solicitud, litrosDonados, horaDonacion, enfermedad } = req.body;
 
     const solicitudSangre = await SolicitudSangre.findById(solicitud);
     if (!solicitudSangre) {
@@ -24,18 +24,23 @@ const aceptarDonacion = async (req, res) => {
         msg: 'Solicitud de sangre no encontrada'
       });
     }
+
+    if (enfermedad) {
+      return res.status(400).json({
+        msg: 'No puedes donar sangre si te haz enfermado hace 15 dias'
+      });
+    }
+
     solicitudSangre.usuarioDonante.push(usuario._id);
     solicitudSangre.litrosDonados += litrosDonados;
-    if (solicitudSangre.litrosDonados >= solicitudSangre.litrosSolicitados) {
-      solicitudSangre.estado = 'Completada';
-    }
 
     await solicitudSangre.save();
 
     const donacionSangre = new DonacionSangre({
       solicitud: solicitudSangre._id,
       usuarioDonante: usuario._id,
-      litrosDonados
+      litrosDonados,
+      enfermedad
     });
 
     await donacionSangre.save();
@@ -45,7 +50,10 @@ const aceptarDonacion = async (req, res) => {
 
     await actualizarLitrosRestantes(solicitud, litrosDonados);
 
-    await actualizarEstadoSolicitud(solicitud);
+    if (solicitudSangre.litrosDonados >= solicitudSangre.litrosSolicitados) {
+      solicitudSangre.estado = 'Completada';
+      await solicitudSangre.save();
+    }
 
     res.json({
       msg: 'Donación de sangre aceptada exitosamente',
@@ -59,6 +67,7 @@ const aceptarDonacion = async (req, res) => {
     });
   }
 };
+
 
 
 
