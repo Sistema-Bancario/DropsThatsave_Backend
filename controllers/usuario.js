@@ -5,24 +5,38 @@ const jwt = require('jsonwebtoken');
 
 
 const getUsuarios = async (req = request, res = response) => {
-
     const query = { estado: true };
-
     const listaUsuarios = await Promise.all([
         Usuario.countDocuments(query),
         Usuario.find(query)
     ]);
-
     res.json({
-        msg: 'get Api - Controlador Usuario',
+        msg: 'Todos los usuarios encontrados son:',
         listaUsuarios
     });
-
 }
 
+const defaultAdmin = async (req, res) => {
+    try {
+        let user = new Usuario();
+        user.nombre = "Administrador";
+        user.password = "123456";
+        user.correo = "admin@gmail.com";
+        user.rol = "ADMIN_ROLE";
+        const userEncontrado = await Usuario.findOne({ correo: user.correo });
+        if (userEncontrado) return console.log("El administrador está listo");
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+        user = await user.save();
+        if (!user) return console.log("El administrador no está listo!");
+        return console.log("El administrador está listo!");
+    } catch (err) {
+        throw new Error(err);
+    }
+};
+
 const postUsuario = async (req = request, res = response) => {
-    const { nombre, correo, password, rol, tipoSangre, telefono } = req.body;
-    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol, tipoSangre, telefono });
+    const { nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes } = req.body;
+    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes });
 
     const salt = bcrypt.genSaltSync();
     usuarioGuardadoDB.password = bcrypt.hashSync(password, salt);
@@ -123,7 +137,8 @@ module.exports = {
     postUsuario,
     postUsuarioAdmin,
     putUsuario,
-    deleteUsuario
+    deleteUsuario,
+    defaultAdmin
 }
 
 

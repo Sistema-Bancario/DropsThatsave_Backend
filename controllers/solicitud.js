@@ -160,11 +160,41 @@ const actualizarEstadoSolicitud = async (solicitudId) => {
 };
 
 
+const mostrarSolicitudesDeSangre = async (req, res) => {
+  try {
+    const token = req.header('x-token');
+    const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+
+    const solicitudes = await SolicitudSangre.find({ tipoSangre, estado: 'Pendiente' }).populate('usuarioSolicitante');
+
+    res.json({
+      solicitudes
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: 'Error al mostrar las solicitudes de sangre'
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 module.exports = {
   solicitarSangre,
+  mostrarSolicitudesDeSangre,
   //aceptarSolicitud,
   actualizarLitrosRestantes,
   actualizarEstadoSolicitud

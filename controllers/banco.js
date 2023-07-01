@@ -5,13 +5,15 @@ const mongoose = require('mongoose');
 
 const postBanco = async (req, res) => {
     try {
-        const { nombre, direccion, telefono, estado, img } = req.body;
+        const { nombre, direccion, telefono, estado, apertura, cierre, img } = req.body;
         
         const nuevoBanco = new Banco({
             nombre,
             direccion,
             telefono,
             estado,
+            apertura, 
+            cierre,
             img
         });
         
