@@ -174,7 +174,7 @@ const mostrarSolicitudesDeSangre = async (req, res) => {
     } 
 
     // Obtener todas las solicitudes de sangre del tipo de sangre del usuario
-    const solicitudes = await SolicitudSangre.find({ tipoSangre });
+    const solicitudes = await SolicitudSangre.find({ tipoSangre: usuario.tipoSangre });
 
     res.json({
       msg: 'Solicitudes de sangre encontradas',
@@ -187,6 +187,7 @@ const mostrarSolicitudesDeSangre = async (req, res) => {
     });
   }
 };
+
 
 
 

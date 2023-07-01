@@ -11,7 +11,7 @@ const getUsuarios = async (req = request, res = response) => {
         Usuario.find(query)
     ]);
     res.json({
-        msg: 'get Api - Controlador Usuario',
+        msg: 'Todos los usuarios encontrados son:',
         listaUsuarios
     });
 }
