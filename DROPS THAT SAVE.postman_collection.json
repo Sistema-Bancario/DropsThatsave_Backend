@@ -406,6 +406,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgzMTI2NDcsImV4cCI6MTY4ODMxNjI0N30.RigrvOdIbd0oDVYek7KZY0B1cpG6ixTWrUd__z6_hwM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/bancos/mostrarBancos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bancos",
+								"mostrarBancos"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -425,7 +451,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipoSangre\":\"A-\",\r\n    \"banco\":\"64a069e2affbbcf03341206f\",\r\n    \"litros\": 50\r\n}",
+							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"64a069e2affbbcf03341206f\",\r\n    \"litros\": 50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -454,13 +480,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhjNzhhNGU0MDkzMTg3NWIwNWE4ZGEiLCJpYXQiOjE2ODc3OTYxOTQsImV4cCI6MTY4Nzc5OTc5NH0.5Grtji1Y2K79HCMZ6uXdwC4Nrjv5HgH6XsZ6wUfPtyE",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNmE2Y2FmZmJiY2YwMzM0MTIwN2IiLCJpYXQiOjE2ODgyMzUxODQsImV4cCI6MTY4ODIzODc4NH0.lNHyh1bbcTIrw2MaspviHnII8I34ek8oe5iG6hnAZIw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"solicitud\": \"6499c6282ce25acf1cadc62e\", \r\n    \"litrosDonados\": 50\r\n}",
+							"raw": "{\r\n    \"solicitud\": \"64a0789ccd29ec3d1fe45620\", \r\n    \"litrosDonados\": 50,\r\n    \"enfermedad\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -483,7 +509,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Mostrar solicitudes por token",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -492,7 +518,7 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNmI2ZWFmZmJiY2YwMzM0MTIwODUiLCJpYXQiOjE2ODgyMzUyMDEsImV4cCI6MTY4ODIzODgwMX0.r_A4Rp32CvxMmrrcmLXwW9bAq3EX7sEid64Ejvj-P2s",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNmE2Y2FmZmJiY2YwMzM0MTIwN2IiLCJpYXQiOjE2ODgyMzk0MTgsImV4cCI6MTY4ODI0MzAxOH0.9fFppOYEbXOMCaGLTwXvxBXQDnzv0MvIghQBvHCCNuc",
 								"type": "text"
 							}
 						],
@@ -506,7 +532,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/solicitudes/mostrarSolicitudes",
+							"raw": "localhost:8080/api/solicitudes/mostrarSolicitudesToken",
 							"host": [
 								"localhost"
 							],
@@ -514,9 +540,17 @@
 							"path": [
 								"api",
 								"solicitudes",
-								"mostrarSolicitudes"
+								"mostrarSolicitudesToken"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
