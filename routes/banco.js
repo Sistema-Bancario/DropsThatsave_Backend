@@ -1,10 +1,15 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { postBanco, putBanco, deleteBanco } = require('../controllers/banco');
+const { postBanco, putBanco, deleteBanco, mostrarBancos } = require('../controllers/banco');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { tieneRole } = require('../middlewares/validar-roles');
 
 const router = Router();
+
+router.get('/mostrarBancos',[
+    validarJWT,
+    tieneRole('ADMIN_ROLE')
+],mostrarBancos);
 
 router.post('/agregar', [
     validarJWT,
