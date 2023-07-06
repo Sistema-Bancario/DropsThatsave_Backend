@@ -13,8 +13,6 @@ const router = Router();
 router.get('/mostrar', getUsuarios);
 
 router.post('/agregar', [
-    validarJWT,
-    tieneRole('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),
     check('password', 'El password es obligatorio').not().isEmpty(),

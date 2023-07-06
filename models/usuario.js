@@ -34,6 +34,9 @@ const UsuarioSchema = Schema({
     tatuajes:{
         type: Boolean
     },
+    enfermedad:{
+        type: Boolean
+    },
     rol: {
         type: String,
        

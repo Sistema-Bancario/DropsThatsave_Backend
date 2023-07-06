@@ -158,9 +158,18 @@ const mostrarSolicitudesDeSangre = async (req, res) => {
     const token = req.header('x-token');
     const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
 
-    const solicitudes = await SolicitudSangre.find({ tipoSangre, estado: 'Pendiente' }).populate('usuarioSolicitante');
+    const usuario = await Usuario.findById(uid);
+    if (!usuario) {
+      return res.status(404).json({
+        msg: 'Usuario no encontrado'
+      });
+    } 
+
+  
+    const solicitudes = await SolicitudSangre.find({ tipoSangre: usuario.tipoSangre, usuarioSolicitante: { $ne: usuario._id } });
 
     res.json({
+      msg: 'Solicitudes de sangre encontradas',
       solicitudes
     });
   } catch (error) {
@@ -170,6 +179,8 @@ const mostrarSolicitudesDeSangre = async (req, res) => {
     });
   }
 };
+
+
 
 const eliminarSolicitud = async (req, res) => {
   try {
