@@ -28,7 +28,7 @@ router.post('/agregar', [
 ] ,postUsuario);
 
 router.post('/agregarAdmin', [
-    //tieneRole('ADMIN_ROLE'),
+    tieneRole('ADMIN_ROLE'),
     check('rol').default('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('correo', 'El correo es obligatorio').not().isEmpty(),

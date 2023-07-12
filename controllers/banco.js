@@ -1,17 +1,35 @@
 const Banco = require('../models/banco');
 const mongoose = require('mongoose');
 
+const mostrarBancos = async (req, res) => {
+    try {
+      const bancos = await Banco.find();
+  
+      res.json({
+        bancos
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        msg: 'Error al mostrar los bancos'
+      });
+    }
+  };
+  
+
 
 
 const postBanco = async (req, res) => {
     try {
-        const { nombre, direccion, telefono, estado, img } = req.body;
+        const { nombre, direccion, telefono, estado, apertura, cierre, img } = req.body;
         
         const nuevoBanco = new Banco({
             nombre,
             direccion,
             telefono,
             estado,
+            apertura, 
+            cierre,
             img
         });
         
@@ -103,5 +121,6 @@ const deleteBanco = async (req, res) => {
 module.exports = {
     postBanco,
     putBanco,
-    deleteBanco
+    deleteBanco,
+    mostrarBancos
 }

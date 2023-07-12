@@ -1,186 +1,273 @@
 {
 	"info": {
-		"_postman_id": "bae6eaf6-359a-4085-b5b9-28a922c86333",
+		"_postman_id": "e7edbc8a-693f-47fb-b018-f8161661a3b9",
 		"name": "DROPS THAT SAVE",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25979209"
 	},
 	"item": [
 		{
 			"name": "Usuarios",
 			"item": [
 				{
-					"name": "Login Admin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"correo\": \"fab@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Logins",
+					"item": [
+						{
+							"name": "Login Admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"correo\": \"admin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/api/auth/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Copy",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"correo\": \"pablo@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login Copy 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"correo\": \"jose@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/auth/login",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"correo\": \"jua@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Agregar",
+					"item": [
+						{
+							"name": "Agregar Admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Fabian\",\r\n    \"correo\": \"fab@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/usuarios/agregarAdmin",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"agregarAdmin"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/api/auth/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar Admin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Fabian\",\r\n    \"correo\": \"fab@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Agregar user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgyMzQ0NTQsImV4cCI6MTY4ODIzODA1NH0.VzjI5C-Ei-1X71qZMdcUM6_uJ7t3F09M3VX-44_xJNY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Jefrey\",\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\",\r\n    \"direccion\":\"7 av 11-76\",\r\n    \"enfermedades\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/usuarios/agregar",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"agregar"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/api/usuarios/agregarAdmin",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usuarios",
-								"agregarAdmin"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar user",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Jefrey\",\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Agregar user Copy 1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgyMzQ0NTQsImV4cCI6MTY4ODIzODA1NH0.VzjI5C-Ei-1X71qZMdcUM6_uJ7t3F09M3VX-44_xJNY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Jose\",\r\n    \"correo\": \"jose@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"A+\",\r\n    \"telefono\":\"54963182\",\r\n    \"direccion\":\"7 av 11-76\",\r\n    \"enfermedades\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/usuarios/agregar",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"agregar"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:8080/api/usuarios/agregar",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usuarios",
-								"agregar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"correo\": \"jef@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Agregar user Copy 2",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-token",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgyMzQ0NTQsImV4cCI6MTY4ODIzODA1NH0.VzjI5C-Ei-1X71qZMdcUM6_uJ7t3F09M3VX-44_xJNY",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"correo\": \"pablo@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\",\r\n    \"direccion\":\"7 av 11-76\",\r\n    \"enfermedades\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/usuarios/agregar",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"agregar"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/auth/login",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar user Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"correo\": \"jua@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"tipoSangre\":\"O+\",\r\n    \"telefono\":\"54963182\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/usuarios/agregar",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"usuarios",
-								"agregar"
-							]
-						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "Editar Usuario",
@@ -229,13 +316,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhiOGY0ZjI0MmYyNDY4MDk2NjBiYTEiLCJpYXQiOjE2ODY4Njc4NTQsImV4cCI6MTY4Njg3MTQ1NH0.IzvdNpvhmRX8SdUmgWAd8oZcP9LvuWjFMLkeX4_765E",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgyMzQ0NTQsImV4cCI6MTY4ODIzODA1NH0.VzjI5C-Ei-1X71qZMdcUM6_uJ7t3F09M3VX-44_xJNY",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"banco la guadalupana\",\r\n    \"direccion\":\"5 av 21-93 zona 10\",\r\n    \"telefno\":\"45293698\"\r\n}",
+							"raw": "{\r\n    \"nombre\":\"banco la guadalupana\",\r\n    \"direccion\":\"5 av 21-93 zona 10\",\r\n    \"telefno\":\"45293698\",\r\n    \"apertura\":\"7am\",\r\n    \"cierre\":\"5pm\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,6 +406,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjdhN2FmZmJiY2YwMzM0MTIwNjgiLCJpYXQiOjE2ODgzMTI2NDcsImV4cCI6MTY4ODMxNjI0N30.RigrvOdIbd0oDVYek7KZY0B1cpG6ixTWrUd__z6_hwM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/api/bancos/mostrarBancos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bancos",
+								"mostrarBancos"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -332,13 +445,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhjOGE0YTA1NmRmYTVjYjk2ZGFhODYiLCJpYXQiOjE2ODc3OTY3ODgsImV4cCI6MTY4NzgwMDM4OH0.E8WueyzqWwKuAA_Uk8mrPcaUrJBpFQlyDGBHVeEpPjw",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNjlmYmFmZmJiY2YwMzM0MTIwNzUiLCJpYXQiOjE2ODgyMzUxNjgsImV4cCI6MTY4ODIzODc2OH0.bCPgSjo_SbNsimHGtxJEva4b42s1W4NyjAhKAfk_nQI",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"648c7e3a00f3f8ec413ed1ff\",\r\n    \"litros\": 50\r\n}",
+							"raw": "{\r\n    \"tipoSangre\":\"O+\",\r\n    \"banco\":\"64a069e2affbbcf03341206f\",\r\n    \"litros\": 50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -367,13 +480,13 @@
 						"header": [
 							{
 								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDhjNzhhNGU0MDkzMTg3NWIwNWE4ZGEiLCJpYXQiOjE2ODc3OTYxOTQsImV4cCI6MTY4Nzc5OTc5NH0.5Grtji1Y2K79HCMZ6uXdwC4Nrjv5HgH6XsZ6wUfPtyE",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNmE2Y2FmZmJiY2YwMzM0MTIwN2IiLCJpYXQiOjE2ODgyMzUxODQsImV4cCI6MTY4ODIzODc4NH0.lNHyh1bbcTIrw2MaspviHnII8I34ek8oe5iG6hnAZIw",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"solicitud\": \"6499c6282ce25acf1cadc62e\", \r\n    \"litrosDonados\": 50\r\n}",
+							"raw": "{\r\n    \"solicitud\": \"64a0789ccd29ec3d1fe45620\", \r\n    \"litrosDonados\": 50,\r\n    \"enfermedad\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -392,6 +505,52 @@
 								"aceptar"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mostrar solicitudes por token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NGEwNmE2Y2FmZmJiY2YwMzM0MTIwN2IiLCJpYXQiOjE2ODgyMzk0MTgsImV4cCI6MTY4ODI0MzAxOH0.9fFppOYEbXOMCaGLTwXvxBXQDnzv0MvIghQBvHCCNuc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/solicitudes/mostrarSolicitudesToken",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"solicitudes",
+								"mostrarSolicitudesToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}

@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { solicitarSangre, aceptarSolicitud } = require('../controllers/solicitud');
+const { solicitarSangre, aceptarSolicitud, mostrarSolicitudesDeSangre, eliminarSolicitud } = require('../controllers/solicitud');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { sangreValida, existeBanco } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validar-campos');
@@ -15,6 +15,16 @@ router.post('/solicitudNueva', [
     check('litros', 'La cantidad es obliagtoria').notEmpty(),
     validarCampos
 ],solicitarSangre);
+
+router.get('/mostrarSolicitudesToken',[
+    validarJWT
+],mostrarSolicitudesDeSangre);
+
+router.delete('/eliminarSolicitud/:id',[
+    validarJWT,
+    check('id', 'El id es obligatorio').notEmpty(),
+    check('id').custom( existeBanco ),
+], eliminarSolicitud)
 
 // router.put('/aceptar/:id',[
 //     validarJWT,

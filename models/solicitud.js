@@ -26,7 +26,7 @@ const SolicitudSangreSchema = Schema({
   },
   estado: {
     type: String,
-    enum: ['Pendiente', 'Aceptada', 'Rechazada', 'Completada'],
+    enum: ['Pendiente', 'Aceptada', 'Rechazada', 'Completada', 'false' ],
     default: 'Pendiente'
   },
   

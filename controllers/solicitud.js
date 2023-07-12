@@ -10,7 +10,6 @@ const solicitarSangre = async (req, res) => {
     const token = req.header('x-token');
     const { uid } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
 
-    // Verificar si el usuario existe
     const usuario = await Usuario.findById(uid);
     if (!usuario) {
       return res.status(404).json({
@@ -20,15 +19,12 @@ const solicitarSangre = async (req, res) => {
 
     const { tipoSangre, banco, litros } = req.body;
 
-    // Verificar si el banco existe
     const existeBanco = await Banco.findById(banco);
     if (!existeBanco) {
       return res.status(404).json({
         msg: 'Banco no encontrado'
       });
     }
-
-    // Crear una nueva instancia de SolicitudSangre con el ID del usuario que realiza la solicitud
     const nuevaSolicitud = new SolicitudSangre({
       usuarioSolicitante: usuario._id,
       tipoSangre,
@@ -36,10 +32,8 @@ const solicitarSangre = async (req, res) => {
       litros
     });
 
-    // Guardar la solicitud en la base de datos
     const solicitudGuardada = await nuevaSolicitud.save();
 
-    // Agregar el ID de la solicitud al array de solicitudes en el usuario
     usuario.solicitudes.push(solicitudGuardada._id);
     await usuario.save();
 
@@ -132,7 +126,6 @@ const actualizarLitrosRestantes = async (solicitudId, litrosDonados) => {
 
     solicitud.litros -= litrosDonados;
 
-    // Verificar si se han completado los litros solicitados
     if (solicitud.litros <= 0) {
       solicitud.estado = 'Completada';
     }
@@ -160,13 +153,74 @@ const actualizarEstadoSolicitud = async (solicitudId) => {
 };
 
 
+const mostrarSolicitudesDeSangre = async (req, res) => {
+  try {
+    const token = req.header('x-token');
+    const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+
+    const usuario = await Usuario.findById(uid);
+    if (!usuario) {
+      return res.status(404).json({
+        msg: 'Usuario no encontrado'
+      });
+    } 
+
+  
+    const solicitudes = await SolicitudSangre.find({ tipoSangre: usuario.tipoSangre, usuarioSolicitante: { $ne: usuario._id } });
+
+    res.json({
+      msg: 'Solicitudes de sangre encontradas',
+      solicitudes
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: 'Error al mostrar las solicitudes de sangre'
+    });
+  }
+};
+
+
+
+const eliminarSolicitud = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const solicitudEliminada = await SolicitudSangre.findByIdAndUpdate(id, { estado: false });
+
+    res.json({
+      msg: 'Solicitud eliminada',
+      solicitudEliminada
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: 'Error al eliminar la solicitud'
+    });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 module.exports = {
   solicitarSangre,
+  mostrarSolicitudesDeSangre,
   //aceptarSolicitud,
   actualizarLitrosRestantes,
-  actualizarEstadoSolicitud
+  actualizarEstadoSolicitud,
+  eliminarSolicitud
 };
 
