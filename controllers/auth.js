@@ -29,14 +29,14 @@ const login = async (req = request, res = response) => {
                 msg: 'Usuario / Password no son correctos - (password incorrecta)'
             });
         }
-
+        const rol = usuario.rol;
         const token = await generarJWT( usuario.id );
 
         res.json({
             msg: 'Login PATH',
             correo, password,
             token,
-            rol: usuario.rol
+            rol
         })
 
     } catch (error) {
