@@ -1,7 +1,7 @@
 //Importaciones
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getUsuarios, postUsuario, putUsuario, deleteUsuario, postUsuarioAdmin } = require('../controllers/usuario');
+const { getUsuarios, postUsuario, putUsuario, deleteUsuario, postUsuarioAdmin, getAdmins, getRolUsuarios } = require('../controllers/usuario');
 const { esRoleValido, emailExiste, existeUsuarioPorId, sangreValida } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
@@ -11,6 +11,16 @@ const { tieneRole } = require('../middlewares/validar-roles');
 const router = Router();
 
 router.get('/mostrar', getUsuarios);
+
+
+router.get('/mostrarAdmins', [
+    validarJWT,
+    tieneRole('ADMIN_ROLE')],getAdmins);
+    
+router.get('/mostrarUsers',[
+    validarJWT,
+    tieneRole('ADMIN_ROLE')
+], getRolUsuarios);
 
 router.post('/agregar', [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
@@ -28,6 +38,7 @@ router.post('/agregar', [
 ] ,postUsuario);
 
 router.post('/agregarAdmin', [
+    validarJWT,
     tieneRole('ADMIN_ROLE'),
     check('rol').default('ADMIN_ROLE'),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
