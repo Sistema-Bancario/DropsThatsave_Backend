@@ -16,6 +16,31 @@ const getUsuarios = async (req = request, res = response) => {
     });
 }
 
+const getAdmins = async (req = request, res = response) => {
+    const query = { rol: "ADMIN_ROLE" };
+    const listaAdmins = await Promise.all([
+        Usuario.countDocuments(query),
+        Usuario.find(query)
+    ]);
+    res.json({
+        msg: 'Todos los Administradores encontrados son:',
+        listaAdmins
+    });
+}
+
+const getRolUsuarios = async (req = request, res = response) => {
+    const query = { rol: "USER_ROLE" };
+    const Users = await Promise.all([
+        Usuario.countDocuments(query),
+        Usuario.find(query)
+    ]);
+    res.json({
+        msg: 'Todos los usuarios con rol Users encontrados son:',
+        Users
+    });
+}
+
+
 const defaultAdmin = async (req, res) => {
     try {
         let user = new Usuario();
@@ -51,7 +76,7 @@ const postUsuario = async (req = request, res = response) => {
 
 const postUsuarioAdmin = async (req = request, res = response) => {
     const { nombre, correo, password, rol } = req.body;
-    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol, enfermedad });
+    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol});
 
     const salt = bcrypt.genSaltSync();
     usuarioGuardadoDB.password = bcrypt.hashSync(password, salt);
@@ -134,6 +159,8 @@ const deleteUsuario = async (req = request, res = response) => {
 
 module.exports = {
     getUsuarios,
+    getAdmins,
+    getRolUsuarios,
     postUsuario,
     postUsuarioAdmin,
     putUsuario,
