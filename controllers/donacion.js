@@ -16,7 +16,7 @@ const aceptarDonacion = async (req, res) => {
       });
     }
 
-    const { solicitud, litrosDonados, horaDonacion, enfermedad } = req.body;
+    const { solicitud, litrosDonados, enfermedad } = req.body;
 
     const solicitudSangre = await SolicitudSangre.findById(solicitud);
     if (!solicitudSangre) {
@@ -25,7 +25,7 @@ const aceptarDonacion = async (req, res) => {
       });
     }
 
-    if (enfermedad) {
+    if (enfermedad =="true") {
       return res.status(400).json({
         msg: 'No puedes donar sangre si te haz enfermado hace 15 dias'
       });
