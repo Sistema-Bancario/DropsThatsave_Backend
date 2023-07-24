@@ -16,6 +16,33 @@ const getUsuarios = async (req = request, res = response) => {
     });
 }
 
+const getMiPerfil = async (req = request, res = response) => {
+    const id = req.usuario.id;
+    const query = { _id: id };
+
+    try {
+        const usuario = await Usuario.findOne(query)
+            .populate('solicitudes')
+            .populate('donaciones')
+            .populate({
+                path: 'solicitudes',
+                populate: [
+                    { path: 'usuarioSolicitante' },
+                    { path: 'banco' },
+                    { path: 'usuarioDonante' }
+                ]
+            });
+
+        if (!usuario) {
+            return res.status(404).json({ error: 'Usuario not found' });
+        }
+
+        res.json({ usuario });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 const getAdmins = async (req = request, res = response) => {
     const query = { rol: "ADMIN_ROLE" };
     const listaAdmins = await Promise.all([
@@ -142,6 +169,40 @@ const putUsuario = async (req = request, res = response) => {
     }
 }
 
+const putMiPerfil = async (req = request, res = response) => {
+    try {
+        const token = req.header('x-token');
+        const { uid } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+        const usuario = await Usuario.findById(uid);
+
+        if (!usuario) {
+            return res.status(404).json({
+                msg: 'Usuario no encontrado'
+            });
+        }
+
+        const { ...resto } = req.body;
+        console.log(resto);
+        const usuarioEditado = await Usuario.findByIdAndUpdate(uid, resto.editUser, {new: true})
+        console.log(usuarioEditado);
+        if (!usuarioEditado) {
+            return res.status(404).json({
+                msg: 'No se pudo editar el usuario'
+            });
+        }
+
+        res.json({
+            msg: 'PUT editar usuario',
+            usuarioEditado
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            msg: 'Error al editar el usuario'
+        });
+    }
+}
+
 
 
 
@@ -166,7 +227,9 @@ module.exports = {
     postUsuarioAdmin,
     putUsuario,
     deleteUsuario,
-    defaultAdmin
+    defaultAdmin,
+    getMiPerfil,
+    putMiPerfil,
 }
 
 

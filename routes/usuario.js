@@ -1,7 +1,7 @@
 //Importaciones
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getUsuarios, postUsuario, putUsuario, deleteUsuario, postUsuarioAdmin, getAdmins, getRolUsuarios } = require('../controllers/usuario');
+const { getUsuarios, postUsuario, putUsuario, deleteUsuario, postUsuarioAdmin, getAdmins, getRolUsuarios, getMiPerfil, putMiPerfil } = require('../controllers/usuario');
 const { esRoleValido, emailExiste, existeUsuarioPorId, sangreValida } = require('../helpers/db-validators');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
@@ -12,6 +12,9 @@ const router = Router();
 
 router.get('/mostrar', getUsuarios);
 
+
+router.get('/miPerfil', [
+    validarJWT, ],getMiPerfil);
 
 router.get('/mostrarAdmins', [
     validarJWT,
@@ -56,6 +59,11 @@ router.put('/editar', [
     validarJWT,
     validarCampos,
 ] ,putUsuario);
+
+router.put('/editarMiPerfil', [
+    validarJWT,
+    validarCampos,
+] ,putMiPerfil);
 
 
 router.delete('/eliminar/:id', [
