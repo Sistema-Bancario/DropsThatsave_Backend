@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/mostrarBancos',[
     validarJWT,
-    tieneRole('ADMIN_ROLE')
+    // tieneRole('ADMIN_ROLE')
 ],mostrarBancos);
 
 router.post('/agregar', [

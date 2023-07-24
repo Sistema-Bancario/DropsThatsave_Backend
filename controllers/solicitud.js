@@ -153,32 +153,34 @@ const actualizarEstadoSolicitud = async (solicitudId) => {
 };
 
 
-const mostrarSolicitudesDeSangre = async (req, res) => {
-  try {
-    const token = req.header('x-token');
-    const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+  const mostrarSolicitudesDeSangre = async (req, res) => {
+    try {
+      const token = req.header('x-token');
+      const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
 
-    const usuario = await Usuario.findById(uid);
-    if (!usuario) {
-      return res.status(404).json({
-        msg: 'Usuario no encontrado'
+      const usuario = await Usuario.findById(uid);
+      if (!usuario) {
+        return res.status(404).json({
+          msg: 'Usuario no encontrado'
+        });
+      } 
+
+    
+      const solicitudes = await SolicitudSangre.find({ tipoSangre: usuario.tipoSangre, usuarioSolicitante: { $ne: usuario._id } })
+      .populate('banco', 'nombre direccion')
+      .populate('usuarioSolicitante', 'nombre');
+
+      res.json({
+        msg: 'Solicitudes de sangre encontradas',
+        solicitudes
       });
-    } 
-
-  
-    const solicitudes = await SolicitudSangre.find({ tipoSangre: usuario.tipoSangre, usuarioSolicitante: { $ne: usuario._id } });
-
-    res.json({
-      msg: 'Solicitudes de sangre encontradas',
-      solicitudes
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      msg: 'Error al mostrar las solicitudes de sangre'
-    });
-  }
-};
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        msg: 'Error al mostrar las solicitudes de sangre'
+      });
+    }
+  };
 
 
 

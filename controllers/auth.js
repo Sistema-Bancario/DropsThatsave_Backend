@@ -11,32 +11,36 @@ const login = async (req = request, res = response) => {
     try {
 
         const usuario = await Usuario.findOne({ correo });
-        if ( !usuario ) {
+        if (!usuario) {
             return res.status(400).json({
                 msg: 'Usuario / Password no son correctos - (El correo no existe jaja)'
             });
         }
 
-        if ( !usuario.estado ) {
+        if (!usuario.estado) {
             return res.status(400).json({
                 msg: 'Usuario / Password no son correctos - estado: false'
             });
         }
-        
-        const validarPassword = bcrypt.compareSync( password, usuario.password );
-        if ( !validarPassword ) {
+
+        const validarPassword = bcrypt.compareSync(password, usuario.password);
+        if (!validarPassword) {
             return res.status(400).json({
                 msg: 'Usuario / Password no son correctos - (password incorrecta)'
             });
         }
         const rol = usuario.rol;
-        const token = await generarJWT( usuario.id );
+        const tatuajes = usuario.tatuajes ;
+        const enfermedad = usuario.enfermedad;
+        const token = await generarJWT(usuario.id);
 
         res.json({
             msg: 'Login PATH',
             correo, password,
             token,
-            rol
+            rol,
+            tatuajes,
+            enfermedad
         })
 
     } catch (error) {

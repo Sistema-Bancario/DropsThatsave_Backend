@@ -61,8 +61,8 @@ const defaultAdmin = async (req, res) => {
 };
 
 const postUsuario = async (req = request, res = response) => {
-    const { nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes } = req.body;
-    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes });
+    const { nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes, enfermedad, img } = req.body;
+    const usuarioGuardadoDB = new Usuario({ nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes, enfermedad, img});
 
     const salt = bcrypt.genSaltSync();
     usuarioGuardadoDB.password = bcrypt.hashSync(password, salt);
