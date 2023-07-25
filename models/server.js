@@ -13,6 +13,7 @@ class Server {
         this.bancosPath = '/api/bancos';
         this.solicitudesPath = '/api/solicitudes';
         this.donacionesPath = '/api/donaciones'
+        this.citasPath = '/api/citas'
 
         this.conectarDB();
 
@@ -20,7 +21,7 @@ class Server {
 
         this.routes();
 
-        defaultAdmin();
+        // defaultAdmin();
 
     }
 
@@ -45,6 +46,8 @@ class Server {
         this.app.use(this.bancosPath,require('../routes/banco'))
         this.app.use(this.solicitudesPath,require('../routes/solicitud'))
         this.app.use(this.donacionesPath,require('../routes/donacion'))
+        this.app.use(this.citasPath,require('../routes/cita'))
+
     }
 
 

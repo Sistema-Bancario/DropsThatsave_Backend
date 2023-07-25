@@ -9,7 +9,6 @@ const mostrarBancos = async (req, res) => {
         bancos
       });
     } catch (error) {
-      console.error(error);
       res.status(500).json({
         msg: 'Error al mostrar los bancos'
       });
@@ -79,7 +78,6 @@ const putBanco = async (req, res) => {
             banco: bancoEditado
         });
     } catch (error) {
-        console.error(error);
         res.status(500).json({
             msg: 'Error al editar el banco'
         });
@@ -109,7 +107,6 @@ const deleteBanco = async (req, res) => {
             banco: bancoEliminado
         });
     } catch (error) {
-        console.error(error);
         res.status(500).json({
             msg: 'Error al eliminar el banco'
         });

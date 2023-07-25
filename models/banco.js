@@ -24,6 +24,9 @@ const BancoSchema = Schema({
     img: {
         type: String
     },
-    
+    citas: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Cita'
+    }]
 })
 module.exports = model('Banco', BancoSchema);
