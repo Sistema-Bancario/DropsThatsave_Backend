@@ -170,6 +170,38 @@ const actualizarEstadoSolicitud = async (solicitudId) => {
       .populate('banco', 'nombre direccion')
       .populate('usuarioSolicitante', 'nombre');
 
+      console.log(solicitudes);
+      res.json({
+        msg: 'Solicitudes de sangre encontradas',
+        solicitudes
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        msg: 'Error al mostrar las solicitudes de sangre'
+      });
+    }
+  };
+
+  const mostrarSolicitudesDeSangreAdmin = async (req, res) => {
+    try {
+      const token = req.header('x-token');
+      const { uid, tipoSangre } = jwt.verify(token, process.env.SECRET_KEY_FOR_TOKEN);
+
+      const usuario = await Usuario.findById(uid);
+      if (!usuario) {
+        return res.status(404).json({
+          msg: 'Usuario no encontrado'
+        });
+      } 
+
+    
+      const solicitudes = await SolicitudSangre.find({ usuarioSolicitante: { $ne: usuario._id } })
+      .populate('banco', 'nombre direccion')
+      .populate('usuarioSolicitante', 'nombre')
+      .populate('usuarioDonante')
+
+      console.log(solicitudes);
       res.json({
         msg: 'Solicitudes de sangre encontradas',
         solicitudes
@@ -202,6 +234,24 @@ const eliminarSolicitud = async (req, res) => {
   }
 };
 
+const eliminarSolicitudPermanente = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const solicitudEliminada = await SolicitudSangre.findByIdAndDelete(id, { new: true });
+
+    res.json({
+      msg: 'Solicitud eliminada',
+      solicitudEliminada
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: 'Error al eliminar la solicitud'
+    });
+  }
+};
+
 
 
 
@@ -220,9 +270,11 @@ const eliminarSolicitud = async (req, res) => {
 module.exports = {
   solicitarSangre,
   mostrarSolicitudesDeSangre,
+  mostrarSolicitudesDeSangreAdmin,
   //aceptarSolicitud,
   actualizarLitrosRestantes,
   actualizarEstadoSolicitud,
-  eliminarSolicitud
+  eliminarSolicitud,
+  eliminarSolicitudPermanente
 };
 
