@@ -182,9 +182,7 @@ const putMiPerfil = async (req = request, res = response) => {
         }
 
         const { ...resto } = req.body;
-        console.log(resto);
         const usuarioEditado = await Usuario.findByIdAndUpdate(uid, resto.editUser, {new: true})
-        console.log(usuarioEditado);
         if (!usuarioEditado) {
             return res.status(404).json({
                 msg: 'No se pudo editar el usuario'
