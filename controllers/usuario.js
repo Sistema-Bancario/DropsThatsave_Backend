@@ -218,7 +218,7 @@ const deleteUsuario = async (req = request, res = response) => {
 }
 
 module.exports = {
-    getUsuarios,
+    getUsuarios,    
     getAdmins,
     getRolUsuarios,
     postUsuario,

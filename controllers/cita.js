@@ -36,21 +36,21 @@ const misCitas = async (req, res) => {
 
 const hacerCita = async (req, res) => {
   try {
-    const { solicitudId, fecha, hora } = req.body;
-    const usuarioDonanteId = req.usuario._id; // Obtener el usuarioDonanteId del token del usuario autenticado
+    const { donacionId, fecha, hora } = req.body;
+    const usuarioDonanteId = req.usuario._id; 
 
-    const citaExistente = await Cita.findOne({ solicitud: solicitudId, fecha, hora });
+    const citaExistente = await Cita.findOne({ donacion: donacionId, fecha, hora });
     if (citaExistente) {
       return res.status(400).json({ msg: 'La cita ya está ocupada, elige otra fecha y hora.' });
     }
 
-    const solicitudes = await solicitud.findById(solicitudId).populate('banco');
-    if (!solicitudes) {
-      return res.status(404).json({ msg: 'La solicitud no fue encontrada.' });
+    const donacion = await DonacionSangre.findById(donacionId).populate('solicitud');
+    if (!donacion) {
+      return res.status(404).json({ msg: 'La donación no fue encontrada.' });
     }
 
     const nuevaCita = new Cita({
-      solicitud: solicitudId,
+      donacion: donacionId,
       usuarioDonante: usuarioDonanteId,
       fecha,
       hora
@@ -58,8 +58,8 @@ const hacerCita = async (req, res) => {
 
     const citaGuardada = await nuevaCita.save();
 
-    solicitudes.banco.citas.push(citaGuardada._id);
-    await solicitudes.banco.save();
+    donacion.solicitud.banco.citas.push(citaGuardada._id);
+    await donacion.solicitud.banco.save();
 
     res.json({
       msg: 'Cita creada exitosamente',
@@ -72,6 +72,7 @@ const hacerCita = async (req, res) => {
     });
   }
 };
+
 
 
 
