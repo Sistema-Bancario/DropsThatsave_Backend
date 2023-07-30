@@ -15,7 +15,7 @@ const DonacionSangreSchema = Schema({
     type: Number,
     required: true
   },
-  enfermedad:{
+  enfermedad: {
     type: Boolean
   },
   fecha: {

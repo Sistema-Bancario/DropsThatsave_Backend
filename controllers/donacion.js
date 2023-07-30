@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const DonacionSangre = require('../models/donacion');
 const SolicitudSangre = require('../models/solicitud');
 const Usuario = require('../models/usuario');
-const { actualizarLitrosRestantes, actualizarEstadoSolicitud } = require('../controllers/solicitud');
+const { actualizarLitrosRestantes} = require('../controllers/solicitud');
 
 const aceptarDonacion = async (req, res) => {
   try {
@@ -68,9 +68,6 @@ const aceptarDonacion = async (req, res) => {
   }
 };
 
-
-
-
 module.exports = {
-  aceptarDonacion
+  aceptarDonacion,
 };

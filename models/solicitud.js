@@ -13,7 +13,7 @@ const SolicitudSangreSchema = Schema({
   tipoSangre: {
     type: String,
   },
-  litros:{
+  litros: {
     type: Number
   },
   banco: {
@@ -26,10 +26,10 @@ const SolicitudSangreSchema = Schema({
   },
   estado: {
     type: String,
-    enum: ['Pendiente', 'Aceptada', 'Rechazada', 'Completada', 'false' ],
+    enum: ['Pendiente', 'Aceptada', 'Rechazada', 'Completada', 'false'],
     default: 'Pendiente'
   },
-  
+
 });
 
 module.exports = model('SolicitudSangre', SolicitudSangreSchema);

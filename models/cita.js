@@ -1,9 +1,9 @@
 const { Schema, model } = require('mongoose');
 
 const CitaSchema = Schema({
-  solicitud: {
+  donacion: { 
     type: Schema.Types.ObjectId,
-    ref: 'SolicitudSangre',
+    ref: 'DonacionSangre', 
     required: true
   },
   usuarioDonante: {

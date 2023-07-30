@@ -14,32 +14,32 @@ const UsuarioSchema = Schema({
     },
     tipoSangre: {
         type: String,
-       
+
     },
     telefono: {
         type: String,
-        
+
     },
     solicitudes: [{
         type: Schema.Types.ObjectId,
         ref: 'SolicitudSangre'
-      }],
-      donaciones: [{
+    }],
+    donaciones: [{
         type: Schema.Types.ObjectId,
         ref: 'DonacionSangre'
-      }],
-    direccion:{
+    }],
+    direccion: {
         type: String
     },
-    tatuajes:{
+    tatuajes: {
         type: Boolean
     },
-    enfermedad:{
+    enfermedad: {
         type: Boolean
     },
     rol: {
         type: String,
-       
+
     },
     img: {
         type: String

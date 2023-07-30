@@ -13,11 +13,8 @@ const mostrarBancos = async (req, res) => {
         msg: 'Error al mostrar los bancos'
       });
     }
-  };
+};
   
-
-
-
 const postBanco = async (req, res) => {
     try {
         const { nombre, direccion, telefono, estado, apertura, cierre, img } = req.body;

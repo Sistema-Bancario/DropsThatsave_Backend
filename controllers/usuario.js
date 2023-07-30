@@ -23,14 +23,15 @@ const getMiPerfil = async (req = request, res = response) => {
     try {
         const usuario = await Usuario.findOne(query)
             .populate('solicitudes')
-            .populate('donaciones')
             .populate({
-                path: 'solicitudes',
-                populate: [
-                    { path: 'usuarioSolicitante' },
-                    { path: 'banco' },
-                    { path: 'usuarioDonante' }
-                ]
+                path: 'donaciones',
+                populate: {
+                    path: 'solicitud',
+                    populate: {
+                        path: 'usuarioSolicitante',
+                        select: 'nombre' 
+                    }
+                }
             });
 
         if (!usuario) {
@@ -42,6 +43,8 @@ const getMiPerfil = async (req = request, res = response) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
 
 const getAdmins = async (req = request, res = response) => {
     const query = { rol: "ADMIN_ROLE" };
@@ -68,24 +71,24 @@ const getRolUsuarios = async (req = request, res = response) => {
 }
 
 
-// const defaultAdmin = async (req, res) => {
-//     try {
-//         let user = new Usuario();
-//         user.nombre = "Administrador";
-//         user.password = "123456";
-//         user.correo = "admin@gmail.com";
-//         user.rol = "ADMIN_ROLE";
-//         user.estado = true
-//         const userEncontrado = await Usuario.findOne({ correo: user.correo });
-//         if (userEncontrado) return console.log("El administrador está listo");
-//         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
-//         user = await user.save();
-//         if (!user) return console.log("El administrador no está listo!");
-//         return console.log("El administrador está listo!");
-//     } catch (err) {
-//         throw new Error(err);
-//     }
-// };
+const defaultAdmin = async (req, res) => {
+    try {
+        let user = new Usuario();
+        user.nombre = "Administrador";
+        user.password = "123456";
+        user.correo = "admin@gmail.com";
+        user.rol = "ADMIN_ROLE";
+        user.estado = true
+        const userEncontrado = await Usuario.findOne({ correo: user.correo });
+        if (userEncontrado) return console.log("El administrador está listo");
+        user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+        user = await user.save();
+        if (!user) return console.log("El administrador no está listo!");
+        return console.log("El administrador está listo!");
+    } catch (err) {
+        throw new Error(err);
+    }
+};
 
 const postUsuario = async (req = request, res = response) => {
     const { nombre, correo, password, rol, tipoSangre, telefono, direccion, tatuajes, enfermedad, img } = req.body;
@@ -225,7 +228,7 @@ module.exports = {
     postUsuarioAdmin,
     putUsuario,
     deleteUsuario,
-    // defaultAdmin,
+    defaultAdmin,
     getMiPerfil,
     putMiPerfil,
 }

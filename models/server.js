@@ -21,7 +21,7 @@ class Server {
 
         this.routes();
 
-        // defaultAdmin();
+        defaultAdmin();
 
     }
 

@@ -1,5 +1,7 @@
 const Cita = require('../models/Cita');
-const solicitud = require('../models/solicitud');
+const Donacion = require('../models/donacion');
+const Solicitud = require('../models/solicitud');
+const Banco = require('../models/banco');
 
 const mostrarCitas = async (req, res) => {
   try {
@@ -20,7 +22,28 @@ const misCitas = async (req, res) => {
   try {
     const usuarioId = req.usuario._id;
 
-    const citas = await Cita.find({ usuarioDonante: usuarioId });
+    const citas = await Cita.find({ usuarioDonante: usuarioId })
+      .populate({
+        path: 'donacion',
+        populate: [
+          {
+            path: 'solicitud',
+            select: 'usuarioSolicitante',
+            populate: {
+              path: 'usuarioSolicitante',
+              select: 'nombre direccion telefono'
+            }
+          },
+          {
+            path: 'solicitud',
+            select: 'banco',
+            populate: {
+              path: 'banco',
+              select: 'nombre direccion telefono'
+            }
+          }
+        ]
+      });
 
     res.json({
       citas
@@ -34,19 +57,31 @@ const misCitas = async (req, res) => {
 };
 
 
+
+
 const hacerCita = async (req, res) => {
   try {
     const { donacionId, fecha, hora } = req.body;
-    const usuarioDonanteId = req.usuario._id; 
+    const usuarioDonanteId = req.usuario._id;
 
-    const citaExistente = await Cita.findOne({ donacion: donacionId, fecha, hora });
+    const citaExistente = await Cita.findOne({ donacion: donacionId });
     if (citaExistente) {
-      return res.status(400).json({ msg: 'La cita ya está ocupada, elige otra fecha y hora.' });
+      return res.status(400).json({ msg: 'La donación ya tiene una cita agendada.' });
     }
 
-    const donacion = await DonacionSangre.findById(donacionId).populate('solicitud');
+    const donacion = await Donacion.findById(donacionId).populate('solicitud');
     if (!donacion) {
       return res.status(404).json({ msg: 'La donación no fue encontrada.' });
+    }
+
+    const solicitud = await Solicitud.findById(donacion.solicitud);
+    if (!solicitud) {
+      return res.status(404).json({ msg: 'La solicitud de sangre no fue encontrada.' });
+    }
+
+    const banco = await Banco.findById(solicitud.banco);
+    if (!banco) {
+      return res.status(404).json({ msg: 'El banco de sangre no fue encontrado.' });
     }
 
     const nuevaCita = new Cita({
@@ -58,8 +93,8 @@ const hacerCita = async (req, res) => {
 
     const citaGuardada = await nuevaCita.save();
 
-    donacion.solicitud.banco.citas.push(citaGuardada._id);
-    await donacion.solicitud.banco.save();
+    banco.citas.push(citaGuardada._id);
+    await banco.save();
 
     res.json({
       msg: 'Cita creada exitosamente',
@@ -72,9 +107,6 @@ const hacerCita = async (req, res) => {
     });
   }
 };
-
-
-
 
 
 const reagendarCita = async (req, res) => {
