@@ -2,7 +2,7 @@
 const Donacion = require('../models/donacion');
 const Solicitud = require('../models/solicitud');
 const Banco = require('../models/banco');
-const Cita = require('../models/Cita');
+const Cita = require('../models/cita');
 
 const mostrarCitas = async (req, res) => {
   try {

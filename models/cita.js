@@ -26,6 +26,5 @@ const CitaSchema = Schema({
   },
 });
 
-const Cita = model('Cita', CitaSchema);
+module.exports = model('Cita', CitaSchema);
 
-module.exports = Cita;
