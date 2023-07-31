@@ -144,7 +144,7 @@ const reagendarCita = async (req, res) => {
 
 const eliminarCita = async (req, res) => {
   try {
-    const { citaId } = req.body;
+    const citaId = req.params.id;
 
     const citaExistente = await Cita.findById(citaId);
     if (!citaExistente) {
@@ -153,20 +153,27 @@ const eliminarCita = async (req, res) => {
 
     await citaExistente.remove();
 
-    const banco = await Banco.findById(citaExistente.solicitud);
-    banco.citas = banco.citas.filter(cita => cita.toString() !== citaId);
-    await banco.save();
+    const donacion = await Donacion.findOne({ cita: citaId });
 
-    res.json({
-      msg: 'Cita eliminada exitosamente'
-    });
+    if (donacion) {
+      donacion.cita = undefined;
+      await donacion.save();
+
+      const solicitud = await Solicitud.findById(donacion.solicitud);
+
+      if (solicitud) {
+        solicitud.banco.citas = solicitud.banco.citas.filter(cita => cita.toString() !== citaId);
+        await solicitud.banco.save();
+      }
+    }
+
+    res.json({ msg: 'Cita eliminada exitosamente' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      msg: 'Error al eliminar la cita'
-    });
+    res.status(500).json({ msg: 'Error al eliminar la cita' });
   }
 };
+
 
 
 module.exports = {
